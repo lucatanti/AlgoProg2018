@@ -75,6 +75,7 @@ public class ArbreBinairePaD{
 		}
 		else return false;
 	}
+	/**
 	public static ArbreBinaire<Integer> suppress(ArbreBinaire<Integer> b, int a){
 		if(!b.estVide()){
 			if(a==b.valeur()){
@@ -92,11 +93,29 @@ public class ArbreBinairePaD{
 			if(a>b.valeur()) return suppress(b.sad(),a);
 	}
 }
+**/
+	public static ArbreBinaire<Integer> ajouter(ArbreBinaire<Integer> b, int a){
+		if(b.estVide()){
+			return new ArbreBinaireChaine<Integer>(a);
+		}
+		else{
+				if(a<b.valeur()){
+				 	ArbreBinaire<Integer> nouvelArbre=ajouter(b.sag(),a);
+				 	return new ArbreBinaireChaine<Integer>(b.valeur(),nouvelArbre,b.sad());
+				 }
+				if(a>b.valeur()){
+					ArbreBinaire<Integer> nouvelArbre=ajouter(b.sad(),a);
+					return new ArbreBinaireChaine<Integer>(b.valeur(),b.sag(),nouvelArbre);
+				}
+
+		}
+		return b;
+	}
 
 
 	public static void main(String[] args){
 		PlancheADessin  pad =new PlancheADessin ();
-		ArbreBinaire <Integer> b = new ArbreBinaireChaine<Integer>(10, new ArbreBinaireChaine<Integer>(8,new ArbreBinaireChaine<Integer>(2),new ArbreBinaireChaine<Integer>(5,new ArbreBinaireChaine<Integer>(3),new ArbreBinaireChaine<Integer>(6))),new ArbreBinaireChaine<Integer>(3, new ArbreBinaireChaine<Integer>(4, new ArbreBinaireChaine<Integer>(2),new ArbreBinaireChaine<Integer>(4)),new ArbreBinaireChaine<Integer>(5)));
-		System.out.println(recherche(b,6));
+		ArbreBinaire <Integer> b = new ArbreBinaireChaine<Integer>(10, new ArbreBinaireChaine<Integer>(8,new ArbreBinaireChaine<Integer>(2),new ArbreBinaireChaine<Integer>(9,new ArbreBinaireChaine<Integer>(3),new ArbreBinaireChaine<Integer>(10))),new ArbreBinaireChaine<Integer>(12, new ArbreBinaireChaine<Integer>(4, new ArbreBinaireChaine<Integer>(2),new ArbreBinaireChaine<Integer>(5)),new ArbreBinaireChaine<Integer>(15)));
+		dessinerArbre2(ajouter(b,11),pad,xd,yd);
 		}
 }
